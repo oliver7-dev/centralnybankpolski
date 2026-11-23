@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centralny Bank Polski</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07142b;--bg2:#0b1d3a;--card:#0e2142;--line:#1d3358;--tx:#e8eefb;--mut:#8fa3c7;--gold:#e6bd48;--gold2:#b8912a;--ok:#22c58b;--bad:#ef5a6f;--blue:#1d4f91}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 Inter,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0}.serif{font-family:'Playfair Display',Georgia,serif}
+nav{position:sticky;top:0;z-index:20;background:rgba(7,20,43,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+nav .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;line-height:1.1}
+.logo i{width:38px;height:38px;border-radius:50%;background:radial-gradient(#f3d77c,#9a7418);display:grid;place-items:center;color:#07142b;font:800 13px 'Playfair Display'}
+.logo small{display:block;color:var(--gold);font-size:10px;letter-spacing:.12em}
+nav .links{display:flex;gap:18px;flex:1;overflow-x:auto}
+nav .links a{color:var(--mut);font-weight:500;padding:20px 0;border-bottom:2px solid transparent;white-space:nowrap}
+nav .links a.on,nav .links a:hover{color:var(--tx);border-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg2);color:var(--tx);padding:9px 16px;border-radius:999px;font:600 14px Inter;cursor:pointer}
+.btn:hover{border-color:var(--gold)}
+.gold{background:linear-gradient(135deg,#f0cf6a,#b8912a);color:#1a1405;border:0}
+.sm{padding:5px 11px;font-size:12.5px}.danger{color:var(--bad)}
+.hero{padding:72px 0 40px;background:radial-gradient(900px 400px at 85% 10%,#16305c55,transparent)}
+.hero .g{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.hero h1{font:800 clamp(38px,6vw,68px)/1.05 'Playfair Display',serif}.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{color:var(--mut);max-width:520px;font-size:16px}
+.cardviz{position:relative;height:300px}
+.cc{position:absolute;right:20px;top:10px;width:340px;height:200px;border-radius:18px;background:linear-gradient(135deg,#102a56,#0a1a38 55%,#6b5a22);border:1px solid #2d4a7c;padding:22px;transform:rotate(-4deg);box-shadow:0 24px 50px #0008}
+.cc b{position:absolute;right:22px;top:18px;color:var(--gold);font:800 24px 'Playfair Display'}
+.cc .chip{width:44px;height:32px;border-radius:6px;background:linear-gradient(135deg,#f0cf6a,#9a7418);margin-top:36px}
+.cc div.n{margin-top:24px;letter-spacing:.2em;font-size:15px}.cc small{color:var(--mut);display:block;margin-top:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.rates{position:absolute;right:0;bottom:0;width:290px;box-shadow:0 20px 40px #0009}
+.rates div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+.up{color:var(--ok)}.dn{color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;padding:20px 0}
+.stats div{padding:0 22px;border-left:1px solid var(--line)}.stats div:first-child{border:0}
+.stats b{display:block;font:600 28px 'Playfair Display';color:var(--gold)}.stats span{color:var(--mut);font-size:13px}
+section{padding:56px 0}.tc{text-align:center}
+.eyebrow{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.14em}
+h2{font:700 34px/1.2 Inter;margin:6px 0 8px}.sub{color:var(--mut)}
+.grid5{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:34px}
+.offer{display:flex;flex-direction:column;gap:6px;position:relative}
+.offer.pop{border-color:var(--gold)}.offer .tag{position:absolute;top:-12px;left:18px;background:var(--gold);color:#1a1405;font:700 11px Inter;padding:3px 10px;border-radius:99px}
+.offer .pr{font:700 30px Inter;margin-top:8px}.offer ul{list-style:none;padding:0;margin:12px 0;flex:1;color:#cdd8ee;font-size:14px}
+.offer li:before{content:'✓ ';color:var(--ok)}.warn{color:#e59a2f;font-size:12.5px;font-weight:600}
+table{width:100%;border-collapse:collapse}th{color:var(--mut);font-size:12px;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:10px;border-top:1px solid var(--line)}td.r,th.r{text-align:right}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-top:28px}
+input,select,textarea{width:100%;background:#091831;border:1px solid var(--line);color:var(--tx);padding:10px 12px;border-radius:10px;font:inherit}
+input:focus,select:focus,textarea:focus,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+label{display:block;color:var(--mut);font-size:12.5px;font-weight:600;margin:12px 0 4px}
+.auth{max-width:400px;margin:60px auto}.auth h2{font-size:28px}
+.msg{padding:10px 14px;border-radius:10px;margin:12px 0;background:#3a1620;color:#ffb3bf}.msg.ok{background:#0f3a2c;color:#9ff0cf}
+.acc{background:linear-gradient(135deg,#102a56,#0b1d3a 60%,#4b4120);border:1px solid #2d4a7c;border-radius:16px;padding:18px}
+.num{font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.pill{font-size:12px;padding:2px 10px;border-radius:99px;background:#1d3358;color:var(--mut)}
+.pill.ok{background:#0f3a2c;color:var(--ok)}.pill.no{background:#3a1620;color:var(--bad)}.pill.wait{background:#3b2f10;color:var(--gold)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}.tabs .btn.on{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+.list>div{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 4px;border-top:1px solid var(--line)}.list>div:first-child{border:0}
+.news{border-left:3px solid var(--gold);padding-left:14px;margin:14px 0}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:13px;text-align:center}
+.ovf{overflow-x:auto}
+@media(max-width:860px){.hero .g,.two{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr;gap:16px}.cardviz{height:340px}.cc{right:auto;left:0;width:300px}}
+@media(prefers-reduced-motion:no-preference){.cc{animation:fl 6s ease-in-out infinite}@keyframes fl{50%{transform:rotate(-4deg) translateY(-8px)}}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="#start"><i>CBP</i><span>Centralny Bank Polski<small>RZECZPOSPOLITA POLSKA</small></span></a>
+ <div class="links" id="links"></div>
+ <div id="who"></div>
+</div></nav>
+<main id="app"></main>
+<footer>© Centralny Bank Polski · Projekt fikcyjny, stworzony na potrzeby gry fabularnej.</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const zl=n=>(+n).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})+' zł';
+const uid=()=>Math.random().toString(36).slice(2,10);
+const today=()=>new Date().toLocaleDateString('pl-PL');
+const now=()=>new Date().toLocaleString('pl-PL',{dateStyle:'short',timeStyle:'short'});
+const TYPES={osobiste:{n:'Konto Osobiste',fee:500,d:'Codzienne finanse Twojej postaci',f:['Karta płatnicza CBP','Bankowość internetowa','Przelewy krajowe','Dostęp do kredytów i lokat']},
+ firmowe:{n:'Konto Firmowe',fee:1000,d:'Dla przedsiębiorców i firm',f:['Numer konta powiązany z NIP','Karta i bankowość internetowa','Kredyt firmowy i rozwojowy','Lokaty firmowe 6%']},
+ lokata_o:{n:'Lokata Osobista',fee:200,d:'Oszczędności na koncie osobistym',f:['Oprocentowanie 3% w skali okresu','Kilka lokat na jednym koncie'],w:'Wymaga Konta Osobistego CBP'},
+ lokata_f:{n:'Lokata Firmowa',fee:400,d:'Wolne środki firmy pracują',f:['Oprocentowanie 6% w skali okresu','Kilka lokat na jednym koncie'],w:'Wymaga Konta Firmowego CBP'},
+ mlodziezowe:{n:'Konto Młodzieżowe',fee:0,d:'Pierwsze konto dla młodych',f:['Bez opłaty za założenie','Karta płatnicza CBP','Bankowość internetowa','Nauka oszczędzania'],w:'Tylko do ukończenia 18 lat'}};
+
+/* ---------- dane (localStorage) ---------- */
+let S=null;
+const save=()=>localStorage.setItem('cbp_db',JSON.stringify(S));
+async function init(){
+ try{S=JSON.parse(localStorage.getItem('cbp_db'))}catch(e){}
+ if(!S){S={users:[{id:'u0',login:'admin',hash:await sha('admin123'),name:'Administrator CBP',role:'admin'}],accounts:[],apps:[],tx:[],loans:[],
+  news:[{id:uid(),title:'Europa Bank',text:'Dziś podczas delegacji we Frankfurcie Prezes wymienił się doświadczeniem z Zarządem Europa Banku.',date:'3 listopada 2026',imp:true},
+        {id:uid(),title:'Nowy cennik kont i lokat CBP',text:'Konto Osobiste 500 zł, Konto Firmowe 1000 zł, Lokata Osobista 200 zł (3%), Lokata Firmowa 400 zł (6%), Konto Młodzieżowe bez opłat.',date:'17 października 2026',imp:false}],
+  rates:[['EUR','Euro',4.3319,4.3604,.23],['USD','Dolar amerykański',3.8994,3.999,2.21],['GBP','Funt szterling',5,5.111,.9],['CHF','Frank szwajcarski',4.5614,4.6005,-2.14],['JPY','Jen japoński',.02,.025,25],['CZK','Korona czeska',.1753,.18,-.81],['SEK','Korona szwedzka',.3711,.3921,-.1]].map(r=>({c:r[0],n:r[1],buy:r[2],sell:r[3],chg:r[4]}))};save()}
+}
+const me=()=>S.users.find(u=>u.id===localStorage.getItem('cbp_s'));
+const isAdmin=()=>me()?.role==='admin';
+const mkNum=()=>{const r=()=>String(Math.floor(Math.random()*1e4)).padStart(4,'0');return`PL 94 4444 0000 ${r()} ${r()} ${r()}`};
+function addTx(accId,title,amt){const a=S.accounts.find(x=>x.id===accId);a.balance+=amt;S.tx.unshift({id:uid(),accId,title,amt,date:now()})}
+function openAccount(userId,type,owner,bal=0,fee=true){
+ const a={id:uid(),userId,type,owner,number:mkNum(),since:today(),balance:0,status:'Aktywne'};S.accounts.push(a);
+ if(fee&&TYPES[type].fee)addTx(a.id,'Opłata za otwarcie: '+TYPES[type].n,-TYPES[type].fee);
+ if(bal)addTx(a.id,'Wpłata początkowa',bal);return a}
+
+/* ---------- widoki ---------- */
+let tab='wnioski',flash='';
+const rates=()=>S.rates.map(r=>`<div><b>${r.c}</b><span>${r.sell.toFixed(4)}</span><span class="${r.chg>=0?'up':'dn'}">${r.chg>0?'+':''}${r.chg.toLocaleString('pl-PL')}%</span></div>`).join('');
+function offers(){return Object.entries(TYPES).map(([k,t],i)=>`<div class="panel offer ${i?'':'pop'}">${i?'':'<span class="tag">NAJPOPULARNIEJSZE</span>'}<h3>${t.n}</h3><span class="sub">${t.d}</span><div class="pr">${t.fee} zł</div><span class="sub" style="font-size:12px">${t.fee?'jednorazowo przy założeniu':'bez opłat'}</span><ul>${t.f.map(x=>`<li>${x}</li>`).join('')}</ul>${t.w?`<div class="warn">${t.w}</div>`:''}<button class="btn ${i?'':'gold'}" data-act="apply" data-t="${k}" style="justify-content:center">${k.startsWith('lokata')?'Otwórz lokatę':'Otwórz konto'}</button></div>`).join('')}
+
+const V={
+start(){const u=me();return`<div class="hero"><div class="wrap"><div class="g"><div>
+<span class="pill" style="border:1px solid var(--line)">Bank centralny Rzeczypospolitej</span>
+<h1 style="margin:18px 0">Stabilność, której <em>możesz zaufać.</em></h1>
+<p>Załóż konto dla swojej postaci w kilka minut — bez wizyty w oddziale. Zarejestruj się, wybierz ofertę i wypełnij wniosek, a pracownik CBP potwierdzi konto.</p>
+<div style="display:flex;gap:10px;margin-top:24px"><a class="btn gold" href="#konta">Załóż konto →</a><a class="btn" href="#kursy">Kursy walut</a></div></div>
+<div class="cardviz"><div class="cc"><b>CBP</b><div class="chip"></div><div class="n">•••• •••• •••• 2026</div><small>POSIADACZ<br><span style="color:var(--tx);font-weight:600">${u?esc(u.name):'Jan Kowalski'}</span></small></div>
+<div class="panel rates"><div style="color:var(--mut);font-size:12px;font-weight:700">KURSY CBP</div>${rates().split('</div>').slice(0,4).join('</div>')}</div></div></div>
+<div class="panel stats"><div><b>5</b><span>produktów dla klientów</span></div><div><b>6</b><span>rodzajów kredytów</span></div><div><b>do 6%</b><span>oprocentowania lokat</span></div><div><b>kilka sekund</b><span>na zaksięgowanie wpłaty</span></div></div></div></div>
+${u?V.panelBody():''}`},
+panelBody(){const u=me(),acc=S.accounts.filter(a=>a.userId===u.id),ids=acc.map(a=>a.id),tx=S.tx.filter(t=>ids.includes(t.accId)),loans=S.loans.filter(l=>ids.includes(l.accId)),ap=S.apps.filter(a=>a.userId===u.id);
+ return`<section><div class="wrap"><div class="eyebrow">— TWOJA BANKOWOŚĆ</div><h2>Witaj, ${esc(u.login)}</h2><p class="sub">Twoje konta w CBP i status złożonych wniosków.</p>
+<div class="two" style="grid-template-columns:1fr 1fr"><div><h3>Konta (${acc.length})</h3>${acc.map(a=>`<div class="acc" style="margin-top:12px"><div style="display:flex;justify-content:space-between"><b style="color:var(--gold)">${TYPES[a.type].n}</b><span class="pill">${a.status}</span></div><p class="num">${a.number}</p><div style="font:700 24px Inter">${zl(a.balance)}</div><div style="display:flex;justify-content:space-between;color:var(--mut);font-size:13px"><span>${esc(a.owner)}</span><span>od ${a.since}</span></div></div>`).join('')||'<p class="sub">Nie masz jeszcze konta. Wybierz ofertę w zakładce Konta.</p>'}
+<h3 style="margin-top:24px">Kredyty (${loans.length})</h3><div class="panel list" style="margin-top:10px">${loans.map(l=>`<div><span><b>Kredyt · ${zl(l.amount)} · ${l.rate}%</b><br><span class="sub">Do spłaty ${zl(l.amount*(1+l.rate/100))} do ${esc(l.due)}</span></span><span class="pill ${l.status==='Spłacony'?'ok':'wait'}">${l.status}</span></div>`).join('')||'<span class="sub">Brak kredytów.</span>'}</div></div>
+<div><h3>Wnioski</h3><div class="panel list" style="margin-top:12px">${ap.map(a=>`<div><span><b>${TYPES[a.type].n} · ${esc(a.name)}</b><br><span class="sub">${a.status==='Zatwierdzony'?'Zatwierdzony przez '+esc(a.by):a.status==='Odrzucony'?'Odrzucony: '+esc(a.reason||'brak uzasadnienia'):'Oczekuje na pracownika CBP'}</span></span><span class="pill ${a.status==='Zatwierdzony'?'ok':a.status==='Odrzucony'?'no':'wait'}">${a.status}</span></div>`).join('')||'<span class="sub">Brak wniosków.</span>'}</div></div></div>
+<h3 style="margin-top:30px">Historia transakcji</h3><div class="panel list" style="margin-top:10px">${tx.map(t=>`<div><span><b>${esc(t.title)}</b><br><span class="sub">${t.date} · ${esc(S.accounts.find(a=>a.id===t.accId)?.number)}</span></span><b class="${t.amt>=0?'up':'dn'}">${t.amt>0?'+':''}${zl(t.amt)}</b></div>`).join('')||'<span class="sub">Brak operacji.</span>'}</div></div></section>`},
+konta(){return`<section><div class="wrap tc"><div class="eyebrow">— OFERTA CBP</div><h2>Konta i lokaty dla Twojej postaci</h2><p class="sub">Wybierz ofertę, zaloguj się, wypełnij krótki formularz i poczekaj na decyzję pracownika.</p><div class="grid5" style="text-align:left">${offers()}</div></div></section>`},
+kursy(){return`<section><div class="wrap"><div class="eyebrow">— AKTUALNOŚCI</div><h2>Komunikaty Zarządu CBP</h2>${S.news.map(n=>`<div class="news"><span class="sub">${esc(n.date)}${n.imp?' · <b style="color:var(--gold)">Ważne</b>':''}</span><h3 class="serif">${esc(n.title)}</h3><p style="margin:4px 0">${esc(n.text)}</p></div>`).join('')}</div></section>
+<section style="background:var(--bg2)"><div class="wrap"><div class="eyebrow">— RYNEK WALUTOWY</div><h2>Kursy walut CBP</h2><div class="two"><div class="panel ovf"><table><tr><th>WALUTA</th><th class="r">KUPNO</th><th class="r">SPRZEDAŻ</th><th class="r">ZMIANA</th></tr>${S.rates.map(r=>`<tr><td><b>${r.c}</b> <span class="sub">${esc(r.n)}</span></td><td class="r">${r.buy.toFixed(4)}</td><td class="r">${r.sell.toFixed(4)}</td><td class="r ${r.chg>=0?'up':'dn'}">${r.chg>0?'+':''}${r.chg.toLocaleString('pl-PL')}%</td></tr>`).join('')}</table></div>
+<div class="panel"><h3>Kalkulator walutowy</h3><label>Kwota</label><input id="ca" type="number" value="1000" data-calc><label>Z waluty</label><select id="cf" data-calc>${['PLN',...S.rates.map(r=>r.c)].map(c=>`<option>${c}</option>`).join('')}</select><label>Na walutę</label><select id="ct" data-calc>${['PLN',...S.rates.map(r=>r.c)].map(c=>`<option ${c==='EUR'?'selected':''}>${c}</option>`).join('')}</select><div class="acc" style="margin-top:16px"><span class="sub">OTRZYMASZ</span><div id="cr" style="font:700 26px Inter;color:var(--gold)"></div></div></div></div></div></section>`},
+rynki(){return`<section><div class="wrap tc"><div class="eyebrow">— RYNKI FINANSOWE</div><h2>Notowania rynkowe CBP</h2><p class="sub">Ten dział jest w przygotowaniu. Notowania pojawią się wkrótce.</p></div></section>`},
+kredyty(){const L=[['Ogólny',12],['Gotówkowy',10],['Hipoteczny',7],['Firmowy',9],['Rozwojowy',8],['Młodzieżowy',5]];return`<section><div class="wrap"><div class="eyebrow">— KREDYTY</div><h2>6 rodzajów kredytów</h2><p class="sub">Kredyt przyznaje pracownik CBP po złożeniu wniosku na kanale ekonomii. Kwota trafia na Twoje konto.</p><div class="grid5">${L.map(l=>`<div class="panel"><h3>Kredyt ${l[0]}</h3><div class="pr" style="font:700 28px Inter;color:var(--gold);margin:6px 0">${l[1]}%</div><span class="sub">w skali okresu</span></div>`).join('')}</div></div></section>`},
+stopy(){return`<section><div class="wrap"><div class="eyebrow">— STOPY PROCENTOWE</div><h2>Tabela oprocentowania</h2><div class="panel ovf" style="margin-top:20px"><table><tr><th>PRODUKT</th><th class="r">OPROCENTOWANIE</th></tr><tr><td>Lokata Osobista</td><td class="r">3%</td></tr><tr><td>Lokata Firmowa</td><td class="r">6%</td></tr><tr><td>Kredyt Ogólny</td><td class="r">12%</td></tr><tr><td>Kredyt Hipoteczny</td><td class="r">7%</td></tr></table></div></div></section>`},
+pomoc(){return`<section><div class="wrap"><div class="eyebrow">— POMOC</div><h2>Najczęstsze pytania</h2>${[['Jak założyć konto?','Zarejestruj się, wybierz ofertę w zakładce Konta i wypełnij wniosek. Pracownik CBP go rozpatrzy.'],['Ile kosztuje otwarcie konta?','Opłaty zależą od produktu — zobacz zakładkę Konta.'],['Gdzie znajdę numer konta?','Po akceptacji wniosku numer widnieje na stronie Start w sekcji „Twoja bankowość”.'],['Zapomniałem hasła','Poproś administratora o reset hasła w panelu.']].map(q=>`<div class="panel" style="margin-top:12px"><b>${q[0]}</b><p class="sub" style="margin:4px 0 0">${q[1]}</p></div>`).join('')}</div></section>`},
+login(){return`<div class="auth panel"><h2>Logowanie</h2>${flash}<form data-form="login"><label>Login</label><input name="login" required autocomplete="username"><label>Hasło</label><input name="pw" type="password" required autocomplete="current-password"><button class="btn gold" style="width:100%;justify-content:center;margin-top:18px">Zaloguj się</button></form><p class="sub">Nie masz konta? <a href="#rejestracja" style="color:var(--gold)">Zarejestruj się</a></p></div>`},
+rejestracja(){return`<div class="auth panel"><h2>Rejestracja</h2>${flash}<form data-form="reg"><label>Login</label><input name="login" required minlength="3" autocomplete="username"><label>Imię i nazwisko postaci</label><input name="name" required><label>Hasło (min. 6 znaków)</label><input name="pw" type="password" required minlength="6" autocomplete="new-password"><button class="btn gold" style="width:100%;justify-content:center;margin-top:18px">Załóż konto użytkownika</button></form><p class="sub">Masz już konto? <a href="#login" style="color:var(--gold)">Zaloguj się</a></p></div>`},
+wniosek(t){const u=me(),T=TYPES[t];if(!T)return V.konta();return`<div class="auth panel"><h2>Wniosek: ${T.n}</h2><p class="sub">Opłata za otwarcie: <b>${zl(T.fee)}</b></p><form data-form="apply"><input type="hidden" name="type" value="${t}"><label>Imię i nazwisko postaci</label><input name="name" required value="${esc(u.name)}"><label>PESEL postaci</label><input name="pesel" required pattern="[0-9]{11}" maxlength="11" placeholder="11 cyfr"><label>Data urodzenia</label><input name="dob" type="date" required><button class="btn gold" style="width:100%;justify-content:center;margin-top:18px">Złóż wniosek</button></form></div>`},
+admin(){if(!isAdmin())return`<div class="auth panel"><h2>Brak dostępu</h2><p class="sub">Ta sekcja jest tylko dla administratorów CBP.</p></div>`;
+ const T=[['wnioski','Wnioski'],['konta','Konta'],['kredyty','Kredyty'],['uzytkownicy','Użytkownicy'],['kursy','Kursy walut'],['komunikaty','Komunikaty'],['dane','Dane']];
+ const pend=S.apps.filter(a=>a.status==='Oczekuje').length;
+ return`<section><div class="wrap"><div class="eyebrow">— PANEL ADMINISTRATORA</div><h2>Zarządzanie CBP</h2>${flash}<div class="tabs">${T.map(t=>`<button class="btn sm ${tab===t[0]?'on':''}" data-act="tab" data-t="${t[0]}">${t[1]}${t[0]==='wnioski'&&pend?` (${pend})`:''}</button>`).join('')}</div>${A[tab]()}</div></section>`}
+};
+const uOpts=()=>S.users.map(u=>`<option value="${u.id}">${esc(u.login)} — ${esc(u.name)}</option>`).join('');
+const aOpts=()=>S.accounts.map(a=>`<option value="${a.id}">${a.number} — ${esc(a.owner)}</option>`).join('');
+const tOpts=()=>Object.entries(TYPES).map(([k,t])=>`<option value="${k}">${t.n}</option>`).join('');
+const A={
+wnioski(){return`<div class="panel list">${S.apps.slice().reverse().map(a=>`<div><span><b>${TYPES[a.type].n} · ${esc(a.name)}</b><br><span class="sub">${a.date} · login: ${esc(S.users.find(u=>u.id===a.userId)?.login)} · PESEL ${esc(a.pesel)} · ur. ${esc(a.dob)}</span></span><span>${a.status==='Oczekuje'?`<button class="btn sm gold" data-act="approve" data-id="${a.id}">Zatwierdź</button> <button class="btn sm danger" data-act="reject" data-id="${a.id}">Odrzuć</button>`:`<span class="pill ${a.status==='Zatwierdzony'?'ok':'no'}">${a.status}</span>`}</span></div>`).join('')||'<span class="sub">Brak wniosków.</span>'}</div>`},
+konta(){return`<div class="panel"><h3>Dodaj konto</h3><form data-form="addacc" class="row"><div><label>Użytkownik</label><select name="user">${uOpts()}</select></div><div><label>Typ konta</label><select name="type">${tOpts()}</select></div><div><label>Właściciel</label><input name="owner" required placeholder="Imię i nazwisko"></div><div><label>Saldo początkowe (zł)</label><input name="bal" type="number" step="0.01" value="0"></div><div><label>&nbsp;</label><label style="margin:0;display:flex;gap:6px;align-items:center"><input type="checkbox" name="fee" style="width:auto" checked> Pobierz opłatę</label></div><button class="btn gold">Dodaj konto</button></form></div>
+<div class="panel ovf" style="margin-top:16px"><table><tr><th>NUMER</th><th>WŁAŚCICIEL</th><th>TYP</th><th class="r">SALDO</th><th></th></tr>${S.accounts.map(a=>`<tr><td class="num">${a.number}</td><td>${esc(a.owner)}</td><td>${TYPES[a.type].n}</td><td class="r">${zl(a.balance)}</td><td class="r"><button class="btn sm" data-act="dep" data-id="${a.id}">Wpłata</button> <button class="btn sm" data-act="wd" data-id="${a.id}">Wypłata</button> <button class="btn sm danger" data-act="delacc" data-id="${a.id}">Usuń</button></td></tr>`).join('')||'<tr><td colspan=5 class="sub">Brak kont.</td></tr>'}</table></div>`},
+kredyty(){return`<div class="panel"><h3>Przyznaj kredyt</h3><form data-form="loan" class="row"><div><label>Konto</label><select name="acc">${aOpts()}</select></div><div><label>Kwota (zł)</label><input name="amount" type="number" min="1" required></div><div><label>Oprocentowanie (%)</label><input name="rate" type="number" step="0.1" value="12" required></div><div><label>Termin spłaty</label><input name="due" type="date" required></div><button class="btn gold">Przyznaj</button></form></div>
+<div class="panel list" style="margin-top:16px">${S.loans.map(l=>`<div><span><b>${zl(l.amount)} · ${l.rate}%</b><br><span class="sub">${esc(S.accounts.find(a=>a.id===l.accId)?.owner)} · do spłaty ${zl(l.amount*(1+l.rate/100))} do ${esc(l.due)}</span></span><span>${l.status==='Spłacony'?'<span class="pill ok">Spłacony</span>':`<button class="btn sm" data-act="repay" data-id="${l.id}">Spłać z konta</button>`}</span></div>`).join('')||'<span class="sub">Brak kredytów.</span>'}</div>`},
+uzytkownicy(){return`<div class="panel"><h3>Dodaj użytkownika</h3><form data-form="adduser" class="row"><div><label>Login</label><input name="login" required></div><div><label>Imię i nazwisko</label><input name="name" required></div><div><label>Hasło</label><input name="pw" type="password" required minlength="6"></div><div><label>Rola</label><select name="role"><option value="user">Użytkownik</option><option value="admin">Administrator</option></select></div><button class="btn gold">Dodaj</button></form></div>
+<div class="panel list" style="margin-top:16px">${S.users.map(u=>`<div><span><b>${esc(u.login)}</b> <span class="pill">${u.role==='admin'?'Administrator':'Użytkownik'}</span><br><span class="sub">${esc(u.name)}</span></span><span><button class="btn sm" data-act="role" data-id="${u.id}">Zmień rolę</button> <button class="btn sm" data-act="reset" data-id="${u.id}">Reset hasła</button> ${u.id===me().id?'':`<button class="btn sm danger" data-act="deluser" data-id="${u.id}">Usuń</button>`}</span></div>`).join('')}</div>`},
+kursy(){return`<div class="panel ovf"><table><tr><th>WALUTA</th><th>KUPNO</th><th>SPRZEDAŻ</th><th></th></tr>${S.rates.map(r=>`<tr><td><b>${r.c}</b> <span class="sub">${esc(r.n)}</span></td><td><input id="b_${r.c}" type="number" step="0.0001" value="${r.buy}"></td><td><input id="s_${r.c}" type="number" step="0.0001" value="${r.sell}"></td><td class="r"><button class="btn sm gold" data-act="saverate" data-id="${r.c}">Zapisz</button> <button class="btn sm danger" data-act="delrate" data-id="${r.c}">Usuń</button></td></tr>`).join('')}</table></div>
+<div class="panel" style="margin-top:16px"><h3>Dodaj walutę</h3><form data-form="addrate" class="row"><div><label>Kod</label><input name="c" required maxlength="3"></div><div><label>Nazwa</label><input name="n" required></div><div><label>Kupno</label><input name="buy" type="number" step="0.0001" required></div><div><label>Sprzedaż</label><input name="sell" type="number" step="0.0001" required></div><button class="btn gold">Dodaj</button></form></div>`},
+komunikaty(){return`<div class="panel"><h3>Nowy komunikat</h3><form data-form="addnews"><label>Tytuł</label><input name="title" required><label>Treść</label><textarea name="text" rows="3" required></textarea><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" name="imp" style="width:auto"> Ważne</label><button class="btn gold" style="margin-top:12px">Opublikuj</button></form></div>
+<div class="panel list" style="margin-top:16px">${S.news.map(n=>`<div><span><b>${esc(n.title)}</b><br><span class="sub">${esc(n.date)}</span></span><button class="btn sm danger" data-act="delnews" data-id="${n.id}">Usuń</button></div>`).join('')}</div>`},
+dane(){return`<div class="panel"><h3>Kopia zapasowa</h3><p class="sub">Dane są zapisane w przeglądarce tego urządzenia. Pobieraj kopię regularnie i wgrywaj ją na innych urządzeniach.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn gold" data-act="export">Pobierz kopię (JSON)</button><label class="btn" style="margin:0">Wgraj kopię<input type="file" accept=".json" id="imp" style="display:none"></label><button class="btn danger" data-act="reset_all">Wyczyść wszystko</button></div></div>`}
+};
+
+/* ---------- router ---------- */
+function render(){
+ let h=(location.hash||'#start').slice(1),[page,arg]=h.split('/');
+ const u=me();
+ if(['panel'].includes(page))page='start';
+ if(page==='wniosek'&&!u){flash='<div class="msg">Zaloguj się, aby złożyć wniosek.</div>';page='login'}
+ const L=[['start','Start'],['konta','Konta'],['kursy','Kursy walut'],['rynki','Rynki'],['kredyty','Kredyty'],['stopy','Stopy procentowe'],['pomoc','Pomoc']];
+ if(isAdmin())L.push(['admin','Panel admina']);
+ $('#links').innerHTML=L.map(l=>`<a href="#${l[0]}" class="${l[0]===page?'on':''}">${l[1]}</a>`).join('');
+ $('#who').innerHTML=u?`<span class="sub" style="margin-right:10px">${esc(u.login)}</span><button class="btn sm" data-act="logout">Wyloguj</button>`:`<a class="btn sm" href="#login">Zaloguj</a> <a class="btn sm gold" href="#rejestracja">Załóż konto</a>`;
+ $('#app').innerHTML=(V[page]||V.start)(arg);flash='';
+ if(page==='kursy')calc();window.scrollTo(0,0)}
+function calc(){const a=+$('#ca').value||0,f=$('#cf').value,t=$('#ct').value,R=c=>S.rates.find(r=>r.c===c);
+ let pln=f==='PLN'?a:a*R(f).buy,out=t==='PLN'?pln:pln/R(t).sell;$('#cr').textContent=out.toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+t}
+const go=(h,m)=>{flash=m||'';if(location.hash==='#'+h)render();else location.hash=h};
+addEventListener('hashchange',render);
+
+/* ---------- akcje ---------- */
+const ok=m=>`<div class="msg ok">${m}</div>`,err=m=>`<div class="msg">${m}</div>`;
+const act={
+ apply(d){location.hash=me()?'wniosek/'+d.t:'login'},
+ logout(){localStorage.removeItem('cbp_s');go('start')},
+ tab(d){tab=d.t;render()},
+ approve(d){const a=S.apps.find(x=>x.id===d.id),acc=openAccount(a.userId,a.type,a.name);Object.assign(a,{status:'Zatwierdzony',by:me().login,accId:acc.id});save();flash=ok('Zatwierdzono. Numer konta: '+acc.number);render()},
+ reject(d){const r=prompt('Powód odrzucenia:');if(r===null)return;Object.assign(S.apps.find(x=>x.id===d.id),{status:'Odrzucony',reason:r,by:me().login});save();render()},
+ dep(d){const v=parseFloat(prompt('Kwota wpłaty (zł):'));if(v>0){addTx(d.id,'Wpłata (administrator)',v);save();render()}},
+ wd(d){const v=parseFloat(prompt('Kwota wypłaty (zł):'));if(v>0){addTx(d.id,'Wypłata (administrator)',-v);save();render()}},
+ delacc(d){if(!confirm('Usunąć konto wraz z historią?'))return;S.accounts=S.accounts.filter(a=>a.id!==d.id);S.tx=S.tx.filter(t=>t.accId!==d.id);S.loans=S.loans.filter(l=>l.accId!==d.id);save();render()},
+ repay(d){const l=S.loans.find(x=>x.id===d.id);addTx(l.accId,'Spłata kredytu',-l.amount*(1+l.rate/100));l.status='Spłacony';save();render()},
+ role(d){const u=S.users.find(x=>x.id===d.id);if(u.id===me().id&&!confirm('Odbierzesz sobie uprawnienia admina. Kontynuować?'))return;u.role=u.role==='admin'?'user':'admin';save();render()},
+ async reset(d){const p=prompt('Nowe hasło (min. 6 znaków):');if(p&&p.length>=6){S.users.find(x=>x.id===d.id).hash=await sha(p);save();flash=ok('Hasło zmienione.');render()}},
+ deluser(d){if(!confirm('Usunąć użytkownika?'))return;S.users=S.users.filter(u=>u.id!==d.id);save();render()},
+ saverate(d){const r=S.rates.find(x=>x.c===d.id),b=+$('#b_'+d.id).value,s=+$('#s_'+d.id).value;if(r.sell)r.chg=+((s/r.sell-1)*100).toFixed(2);r.buy=b;r.sell=s;save();flash=ok('Kurs '+r.c+' zapisany.');render()},
+ delrate(d){S.rates=S.rates.filter(r=>r.c!==d.id);save();render()},
+ delnews(d){S.news=S.news.filter(n=>n.id!==d.id);save();render()},
+ export(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='cbp-kopia-'+new Date().toISOString().slice(0,10)+'.json';a.click()},
+ reset_all(){if(confirm('Na pewno usunąć wszystkie dane? Tego nie można cofnąć.')){localStorage.removeItem('cbp_db');localStorage.removeItem('cbp_s');location.reload()}}
+};
+const forms={
+ async login(f){const u=S.users.find(x=>x.login.toLowerCase()===f.login.trim().toLowerCase());
+  if(!u||u.hash!==await sha(f.pw))return go('login',err('Nieprawidłowy login lub hasło.'));
+  localStorage.setItem('cbp_s',u.id);go(u.role==='admin'?'admin':'start')},
+ async reg(f){const l=f.login.trim();if(S.users.some(u=>u.login.toLowerCase()===l.toLowerCase()))return go('rejestracja',err('Ten login jest już zajęty.'));
+  const u={id:uid(),login:l,hash:await sha(f.pw),name:f.name.trim(),role:'user'};S.users.push(u);save();localStorage.setItem('cbp_s',u.id);go('konta')},
+ apply(f){S.apps.push({id:uid(),userId:me().id,type:f.type,name:f.name.trim(),pesel:f.pesel,dob:f.dob,status:'Oczekuje',date:today()});save();go('start')},
+ addacc(f){openAccount(f.user,f.type,f.owner.trim(),+f.bal||0,!!f.fee);save();flash=ok('Konto zostało dodane.');render()},
+ loan(f){if(!f.acc)return;S.loans.push({id:uid(),accId:f.acc,amount:+f.amount,rate:+f.rate,due:f.due,status:'Aktywny'});addTx(f.acc,'Wypłata kredytu',+f.amount);save();flash=ok('Kredyt przyznany.');render()},
+ async adduser(f){if(S.users.some(u=>u.login.toLowerCase()===f.login.toLowerCase())){flash=err('Login zajęty.');return render()}S.users.push({id:uid(),login:f.login.trim(),hash:await sha(f.pw),name:f.name.trim(),role:f.role});save();flash=ok('Użytkownik dodany.');render()},
+ addrate(f){S.rates.push({c:f.c.toUpperCase(),n:f.n,buy:+f.buy,sell:+f.sell,chg:0});save();render()},
+ addnews(f){S.news.unshift({id:uid(),title:f.title,text:f.text,date:new Date().toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'}),imp:!!f.imp});save();render()}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b&&act[b.dataset.act])act[b.dataset.act](b.dataset)});
+document.addEventListener('submit',e=>{const n=e.target.dataset.form;if(!n)return;e.preventDefault();
+ const f=Object.fromEntries(new FormData(e.target));forms[n](f)});
+document.addEventListener('input',e=>{if(e.target.matches('[data-calc]'))calc()});
+document.addEventListener('change',e=>{if(e.target.id==='imp'){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.users||!d.accounts)throw 0;S=d;save();flash=ok('Kopia wczytana.');render()}catch(x){flash=err('Nieprawidłowy plik kopii.');render()}};r.readAsText(e.target.files[0])}});
+init().then(render);
+</script>
+</body>
+</html>
